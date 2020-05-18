@@ -9,55 +9,61 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: transactions.map((tr) {
-        // A função map recebe cada um dos elementos da lista
-        return Card(
-          child: Row(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 20,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.purple,
-                    width: 2,
+    return Container(
+      height: 348,
+      child: ListView.builder(
+        /* Com essa função todos os elementos que estão fora da tela não 
+        serão carregados, assim economizando memória */
+        itemCount: transactions.length,
+        itemBuilder: (ctx, index) {
+          final tr = transactions[index];
+          return Card(
+            child: Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 20,
                   ),
-                ),
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  'R\$ ${tr.value.toStringAsFixed(2)}', // Interpolação de String
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.purple,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.purple,
+                      width: 2,
+                    ),
                   ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    tr.title,
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    'R\$ ${tr.value.toStringAsFixed(2)}', // Interpolação de String
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: 20,
+                      color: Colors.purple,
                     ),
                   ),
-                  Text(
-                    DateFormat('d/MMM/y').format(tr.date).toString(),
-                    style: TextStyle(
-                      color: Colors.grey[600],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      tr.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      }).toList(),
+                    Text(
+                      DateFormat('d/MMM/y').format(tr.date).toString(),
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
