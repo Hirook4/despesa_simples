@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -13,31 +12,34 @@ class DespesasApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: HomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        accentColor: Colors.deepPurple,
+        fontFamily: 'OpenSans',
+      ),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
-  final _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Novo Tenis',
-      value: 399.00,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Conta Luz',
-      value: 600.00,
-      date: DateTime.now(),
-    ),
+  final List<Transaction> _transactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Novo Tenis',
+    //   value: 399.00,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Conta Luz',
+    //   value: 600.00,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   _addTransaction(String title, double value) {
@@ -51,15 +53,15 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _transactions.add(newTransaction);
     });
+    Navigator.of(context).pop(); // Fechar modal após envio de formulario
   }
 
   _openFormModal(BuildContext context) {
     showModalBottomSheet(
-      context: context,
-      builder: (_) {
-return TransactionForm(_addTransaction);
-      }
-    );
+        context: context,
+        builder: (_) {
+          return TransactionForm(_addTransaction);
+        });
   }
 
   @override
