@@ -14,8 +14,8 @@ class DespesasApp extends StatelessWidget {
     return MaterialApp(
       home: HomePage(),
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        accentColor: Colors.deepPurple,
+        primarySwatch: Colors.indigo,
+        accentColor: Colors.cyan,
         fontFamily: 'OpenSans',
       ),
     );
@@ -32,14 +32,14 @@ class _HomePageState extends State<HomePage> {
     Transaction(
       id: 't0',
       title: 'Novo aaa',
-      value: 399.00,
-      date: DateTime.now().subtract(Duration(days: 33)),
+      value: 200.00,
+      date: DateTime.now().subtract(Duration(days: 2)),
     ),
     Transaction(
       id: 't2',
       title: 'Conta Luz',
       value: 600.00,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(Duration(days: 5)),
     ),
   ];
 
