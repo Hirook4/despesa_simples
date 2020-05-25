@@ -1,6 +1,6 @@
 # despesa_simples
 
-App simples para controle de despesas.
+App simples para controle de despesas semanais. Feito acompanhando curso de Flutter Leonardo Moura Leitao
 
 ## Getting Started
 
