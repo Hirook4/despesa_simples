@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:despesa_simples/components/transaction_form.dart';
 import 'package:despesa_simples/models/transaction.dart';
+import 'package:flutter/services.dart';
 import 'components/transaction_list.dart';
 
 main() => runApp(DespesasApp());
@@ -11,6 +12,8 @@ main() => runApp(DespesasApp());
 class DespesasApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp]); // Faz o app ser apenas modo retrato
     return MaterialApp(
       home: HomePage(),
       theme: ThemeData(
@@ -77,22 +80,34 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Despesas Simples'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _openFormModal(context),
+        )
+      ],
+    );
+
+    final availableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Despesas Simples'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _openFormModal(context),
-          )
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransaction),
-            TransactionList(_transactions, _removeTransaction),
+            Container(
+              height: availableHeight * 0.30,
+              child: Chart(_recentTransaction),
+            ),
+            Container(
+              height: availableHeight * 0.70,
+              child: TransactionList(_transactions, _removeTransaction),
+            ),
           ],
         ),
       ),

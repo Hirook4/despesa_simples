@@ -2,6 +2,8 @@
 
 App simples para controle de despesas semanais. Feito acompanhando curso de Flutter Leonardo Moura Leitao
 
+![](Print.png)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

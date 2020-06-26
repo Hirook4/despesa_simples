@@ -10,67 +10,64 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 480,
-      child: transactions.isEmpty
-          ? Column(
-              children: <Widget>[
-                Text(
-                  'Nenhuma Transação Cadastrada',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+    return transactions.isEmpty
+        ? Column(
+            children: <Widget>[
+              Text(
+                'Nenhuma Transação Cadastrada',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(
-                  height: 18,
+              ),
+              SizedBox(
+                height: 18,
+              ),
+              Container(
+                height: 200,
+                child: Image.asset(
+                  'assets/images/zzz.png',
+                  fit: BoxFit.cover,
                 ),
-                Container(
-                  height: 200,
-                  child: Image.asset(
-                    'assets/images/zzz.png',
-                    fit: BoxFit.cover,
-                  ),
+              ),
+            ],
+          )
+        : ListView.builder(
+            /* Com essa função todos os elementos que estão fora da tela não 
+      serão carregados, assim economizando memória */
+            itemCount: transactions.length,
+            itemBuilder: (ctx, index) {
+              final tr = transactions[index];
+              return Card(
+                elevation: 5,
+                margin: EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 5,
                 ),
-              ],
-            )
-          : ListView.builder(
-              /* Com essa função todos os elementos que estão fora da tela não 
-        serão carregados, assim economizando memória */
-              itemCount: transactions.length,
-              itemBuilder: (ctx, index) {
-                final tr = transactions[index];
-                return Card(
-                  elevation: 5,
-                  margin: EdgeInsets.symmetric(
-                    vertical: 5,
-                    horizontal: 5,
-                  ),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: FittedBox(
-                          child: Text('R\$${tr.value}'),
-                        ),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: FittedBox(
+                        child: Text('R\$${tr.value}'),
                       ),
                     ),
-                    title: Text(
-                      tr.title,
-                      style: TextStyle(fontSize: 19),
-                    ),
-                    subtitle: Text(
-                      DateFormat('d MMM y').format(tr.date),
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () => onRemove(tr.id),
-                    ),
                   ),
-                );
-              },
-            ),
-    );
+                  title: Text(
+                    tr.title,
+                    style: TextStyle(fontSize: 19),
+                  ),
+                  subtitle: Text(
+                    DateFormat('d MMM y').format(tr.date),
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    color: Theme.of(context).errorColor,
+                    onPressed: () => onRemove(tr.id),
+                  ),
+                ),
+              );
+            },
+          );
   }
 }
